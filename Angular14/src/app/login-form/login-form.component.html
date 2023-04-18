@@ -1,13 +1,17 @@
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div formGroupName="credentials">
       <label for="email"
         >Email :
         <input type="email" formControlName="email" required />
       </label>
+      {{ loginForm.get('credentials.email')?.errors?.['email'].rules }}
+      <div *ngIf="loginForm.get('credentials.email')?.errors && !loginForm.get('credentials.email')" class="error-msg">
+      </div> 
+      <br>
       <label for="password"
         >Mot de passe :
         <input type="password" formControlName="password" required />
       </label>
-      <button type="submit" [disabled]="!userForm.valid">Submit</button>
+      <button type="submit" [disabled]="!loginForm.valid">Submit</button>
     </div>
   </form>

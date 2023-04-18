@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
+import { LoginValidator } from './email-validators';
 
 @Component({
   selector: 'app-login-form',
@@ -9,21 +10,19 @@ import {FormBuilder} from '@angular/forms';
 
 export class LoginFormComponent {
 
+  loginForm = this.fb.group({
+    credentials: this.fb.group({
+      email: ['', [Validators.required, LoginValidator.email]]
+    }),
+  });
   onSubmit() {
-    if (this.userForm.valid) {
-      console.log(this.userForm.value);
+    if (this.loginForm.valid) {
+      console.log(this.loginForm.value);
     } else {
-      console.log('Formulaire invalide, ho bah mince alors !');
+      console.log('Formulaire invalide');
     }
 
   }
-
-  userForm = this.fb.group({
-    credentials: this.fb.group({
-      email: [''],
-      password: [''],
-    }),
-  });
 
   constructor(private fb: FormBuilder) {}
   
